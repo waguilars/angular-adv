@@ -1,1 +1,16 @@
-<p>chart1 works!</p>
+<div class="row">
+  <div class="col-md-6">
+    <app-donut title="Ventas"></app-donut>
+  </div>
+  <div class="col-md-6">
+    <app-donut [chartData]="data1" [chartLabels]="labels1"></app-donut>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <app-donut title="Compras"></app-donut>
+  </div>
+  <div class="col-md-6">
+    <app-donut title="Pedidos"></app-donut>
+  </div>
+</div>

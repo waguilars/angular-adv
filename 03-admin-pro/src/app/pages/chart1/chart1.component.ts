@@ -1,16 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MultiDataSet, Label, Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-chart1',
   templateUrl: './chart1.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-export class Chart1Component implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class Chart1Component {
+  labels1: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  data1 = [[25, 50, 100]];
 }

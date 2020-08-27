@@ -1,1 +1,52 @@
-<p>progress works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Progress bar {{ progress1 }}</h4>
+        <div class="progress m-t-30">
+          <div
+            class="progress-bar bg-primary active"
+            style="height: 6px"
+            role="progressbar"
+            [style.width.%]="getProgress1"
+          >
+            <span class="sr-only">60% Complete</span>
+          </div>
+        </div>
+        <div class="progress m-t-30">
+          <div
+            class="progress-bar bg-info wow animated progress-animated active"
+            style="height: 6px"
+            role="progressbar"
+            [style.width.%]="getProgress2"
+          >
+            <span class="sr-only">60% Complete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <app-incremental
+          (valueChange)="progress1 = $event"
+          [value]="25"
+        ></app-incremental>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <app-incremental
+          (valueChange)="progress2 = $event"
+          [btnClass]="'btn-info'"
+        ></app-incremental>
+      </div>
+    </div>
+  </div>
+</div>
