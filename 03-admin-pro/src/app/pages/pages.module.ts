@@ -11,6 +11,8 @@ import { Chart1Component } from './chart1/chart1.component';
 import { ProgressComponent } from './progress/progress.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
+import { PromisesComponent } from './promises/promises.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { AccoutSettingsComponent } from './accout-settings/accout-settings.compo
     Chart1Component,
     PagesComponent,
     AccoutSettingsComponent,
+    PromisesComponent,
+    RxjsComponent,
   ],
   imports: [
     CommonModule,

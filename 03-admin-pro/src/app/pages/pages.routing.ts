@@ -6,18 +6,46 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Chart1Component } from './chart1/chart1.component';
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
+import { PromisesComponent } from './promises/promises.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     component: PagesComponent,
     children: [
-      { path: '', component: DashboardComponent },
-      { path: 'main', component: DashboardComponent },
-      { path: 'progress', component: ProgressComponent },
-      { path: 'charts', component: Chart1Component },
-      { path: 'account-settings', component: AccoutSettingsComponent },
-      { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
+      { path: '', component: DashboardComponent, data: { title: 'Dashboard' } },
+      {
+        path: 'main',
+        component: DashboardComponent,
+        data: { title: 'Dashboard' },
+      },
+      {
+        path: 'progress',
+        component: ProgressComponent,
+        data: { title: 'PorgressBar' },
+      },
+      {
+        path: 'charts',
+        component: Chart1Component,
+        data: { title: 'Graficos' },
+      },
+      {
+        path: 'account-settings',
+        component: AccoutSettingsComponent,
+        data: { title: 'Ajustes' },
+      },
+      {
+        path: 'promises',
+        component: PromisesComponent,
+        data: { title: 'Promesas' },
+      },
+      { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' } },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/dashboard',
+      },
     ],
   },
 ];
