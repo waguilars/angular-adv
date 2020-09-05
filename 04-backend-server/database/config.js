@@ -6,6 +6,7 @@ const dbConnection = async () => {
       useCreateIndex: true,
       useUnifiedTopology: true,
       useNewUrlParser: true,
+      useFindAndModify: false,
     });
     console.log('DB is now online');
   } catch (error) {

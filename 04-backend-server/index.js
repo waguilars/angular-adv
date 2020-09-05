@@ -8,18 +8,18 @@ const { dbConnection } = require('./database/config');
 // App
 const app = express();
 
-// CORS
-app.use(cors());
-
 // Database
 dbConnection();
 
-app.get('/', (req, res) => {
-  res.json({
-    ok: true,
-    message: 'Hola mundo',
-  });
-});
+// CORS
+app.use(cors());
+
+// Parseo Body
+app.use(express.json());
+
+//Routes
+app.use('/api/users', require('./routes/users'));
+app.use('/api/login', require('./routes/auth'));
 
 app.listen(process.env.PORT, () => {
   console.log(`App is running at port ${process.env.PORT}`);
