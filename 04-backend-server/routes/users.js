@@ -1,3 +1,5 @@
+// path: /api/user
+
 const { Router } = require('express');
 const { check } = require('express-validator');
 
@@ -17,7 +19,7 @@ router.get('/', validateJWT, getUsers);
 router.post(
   '/',
   [
-    validateJWT,
+    // validateJWT,
     check('name', 'El nombre es obligatorio').trim().not().isEmpty(),
     check('password', 'La contraseña es obligatoria').trim().not().isEmpty(),
     check('email', 'El email no es valido').isEmail(),
