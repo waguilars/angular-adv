@@ -14,6 +14,7 @@ const {
 const router = Router();
 
 router.get('/', getDoctors);
+
 router.post(
   '/',
   [
@@ -24,7 +25,17 @@ router.post(
   ],
   addDoctor
 );
-router.put('/:id', [], updateDoctor);
-router.delete('/:id', deleteDoctor);
+router.put(
+  '/:id',
+  [
+    validateJWT,
+    check('name', 'El nombre del médico es necesario').not().isEmpty(),
+    check('hospital', 'Id de hospital no valido').isMongoId(),
+    validateFields,
+  ],
+  updateDoctor
+);
+
+router.delete('/:id', validateJWT, deleteDoctor);
 
 module.exports = router;

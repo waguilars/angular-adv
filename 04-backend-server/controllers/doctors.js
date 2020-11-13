@@ -38,18 +38,68 @@ const addDoctor = async (req = request, res = response) => {
   }
 };
 
-const updateDoctor = (req, res = response) => {
-  res.json({
-    ok: true,
-    message: 'update Doctores',
-  });
+const updateDoctor = async (req = request, res = response) => {
+  const { id } = req.params;
+  const { uid } = req;
+
+  try {
+    const doctor = await Doctor.findOne({ _id: id });
+
+    if (!doctor)
+      return (
+        res.status(404),
+        json({
+          ok: false,
+          msg: 'No se encontro ningun doctor con ese id.',
+        })
+      );
+
+    const changes = { ...req.body, user: uid };
+    const updatedDoctor = await Doctor.findOneAndUpdate({ _id: id }, changes, {
+      new: true,
+    })
+      .populate('hospital')
+      .exec();
+
+    res.json({
+      ok: true,
+      doctor: updatedDoctor,
+    });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      message: 'Contacte con el admin',
+    });
+  }
 };
 
-const deleteDoctor = (req, res = response) => {
-  res.json({
-    ok: true,
-    message: 'delte Doctores',
-  });
+const deleteDoctor = async (req = request, res = response) => {
+  const { id } = req.params;
+
+  try {
+    const doctor = await Doctor.findOne({ _id: id });
+
+    if (!doctor)
+      return (
+        res.status(404),
+        json({
+          ok: false,
+          msg: 'No se encontro ningun doctor con ese id.',
+        })
+      );
+
+    await Doctor.findOneAndDelete({ _id: id });
+
+    res.json({
+      ok: true,
+      msg: 'Doctor ha sido eliminado',
+    });
+  } catch (error) {
+    res.json({
+      ok: false,
+      message: 'Conteacte con el administrador.',
+    });
+  }
 };
 
 module.exports = {
