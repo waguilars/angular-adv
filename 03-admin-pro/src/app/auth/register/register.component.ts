@@ -1,12 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit {
-  constructor() {}
+export class RegisterComponent {
+  public formSubmitted = false;
 
-  ngOnInit(): void {}
+  public registerForm = this.fb.group(
+    {
+      name: ['Wilson Aguilar', [Validators.required]],
+      email: [
+        'wilson-881@hotmail.com',
+        [Validators.required, Validators.email],
+      ],
+      password: ['123456', [Validators.required]],
+      password2: ['123456', [Validators.required]],
+      terms: [true, [Validators.required]],
+    },
+    {
+      validators: this.passwordsMatch('password', 'password2'),
+    }
+  );
+
+  constructor(private fb: FormBuilder) {}
+
+  createUser(): void {
+    this.formSubmitted = true;
+    if (this.registerForm.valid) {
+      console.log('Sending info');
+    }
+  }
+
+  noValidField(field: string): boolean {
+    if (this.registerForm.get(field).invalid && this.formSubmitted) {
+      return true;
+    }
+    return false;
+  }
+
+  noValidPasswords(): boolean {
+    const pass1 = this.registerForm.get('password').value;
+    const pass2 = this.registerForm.get('password2').value;
+
+    if (pass1 !== pass2 && this.formSubmitted) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  acceptTerms(): boolean {
+    return !this.registerForm.get('terms').value && this.formSubmitted;
+  }
+
+  passwordsMatch(pass1Name: string, pass2Name: string): CallableFunction {
+    return (formGroup: FormGroup) => {
+      const pass1Ctrl = formGroup.get(pass1Name);
+      const pass2Ctrl = formGroup.get(pass2Name);
+
+      if (pass1Ctrl.value === pass2Ctrl.value) {
+        pass2Ctrl.setErrors(null);
+      } else {
+        pass2Ctrl.setErrors({ notMatching: true });
+      }
+    };
+  }
 }
