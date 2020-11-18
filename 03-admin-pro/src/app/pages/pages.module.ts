@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     AccoutSettingsComponent,
     PromisesComponent,
     RxjsComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

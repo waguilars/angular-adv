@@ -10,6 +10,7 @@ import { Chart1Component } from './chart1/chart1.component';
 import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,11 @@ const routes: Routes = [
         path: 'promises',
         component: PromisesComponent,
         data: { title: 'Promesas' },
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: { title: 'Mi Perfil' },
       },
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' } },
       {

@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment.prod';
 
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { User } from '../models/user.model';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -17,6 +18,7 @@ declare const gapi: any;
 })
 export class UserService {
   public auth2: any;
+  public user: User;
 
   constructor(
     private http: HttpClient,
@@ -36,10 +38,12 @@ export class UserService {
         },
       })
       .pipe(
-        tap((resp: any) => {
+        map((resp: any) => {
           localStorage.setItem('token', resp.token);
+          const { role, google, name, email, img, uid } = resp.user;
+          this.user = new User(name, email, null, img, google, uid, role);
+          return true;
         }),
-        map((resp) => true),
         catchError((err) => of(false))
       );
   }
