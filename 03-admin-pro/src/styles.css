@@ -8,3 +8,15 @@
 ul#themecolors li {
   cursor: pointer;
 }
+
+.social .btn-google {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+ul.dropdown-user li {
+  cursor: pointer;
+}
