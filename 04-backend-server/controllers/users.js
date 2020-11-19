@@ -86,6 +86,14 @@ const updateUser = async (req = request, res = response) => {
           msg: 'Ya existe un usuario con ese correo.',
         });
     }
+
+    if (userDB.google && email != userDB.email) {
+      return res.status(400).json({
+        ok: false,
+        msg: 'Usuarios de google no pueden cambiar su correo.',
+      });
+    }
+
     fields.email = email;
     const updatedUser = await User.findByIdAndUpdate(uid, fields, {
       new: true,

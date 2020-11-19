@@ -67,7 +67,7 @@ const googleSignIn = async (req = request, res = response) => {
 
     await user.save();
 
-    const token = await generateJwt(userDB._id);
+    const token = await generateJwt(user._id);
 
     res.json({
       ok: true,

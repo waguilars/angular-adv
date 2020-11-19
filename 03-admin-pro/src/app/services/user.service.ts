@@ -29,12 +29,10 @@ export class UserService {
   }
 
   validateToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
-
     return this.http
       .get(`${base_url}/login/renew`, {
         headers: {
-          'x-token': token,
+          'x-token': this.token,
         },
       })
       .pipe(
@@ -54,6 +52,22 @@ export class UserService {
         localStorage.setItem('token', resp.token);
       })
     );
+  }
+
+  updateProfile(data: {
+    name: string;
+    email: string;
+    role: string;
+  }): Observable<any> {
+    data = {
+      ...data,
+      role: this.user.role,
+    };
+    return this.http.put(`${base_url}/users/${this.uid}`, data, {
+      headers: {
+        'x-token': this.token,
+      },
+    });
   }
 
   login(formData: LoginForm): Observable<any> {
@@ -97,5 +111,13 @@ export class UserService {
 
       // console.log('User signed out.');
     });
+  }
+
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get uid(): string {
+    return this.user.uid || '';
   }
 }
