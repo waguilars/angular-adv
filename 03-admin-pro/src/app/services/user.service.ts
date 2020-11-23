@@ -1,14 +1,15 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, resolveForwardRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError, delay } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment.prod';
 
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { User } from '../models/user.model';
+import { LoadUsers } from '../interfaces/responses.interface';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -63,11 +64,11 @@ export class UserService {
       ...data,
       role: this.user.role,
     };
-    return this.http.put(`${base_url}/users/${this.uid}`, data, {
-      headers: {
-        'x-token': this.token,
-      },
-    });
+    return this.http.put(`${base_url}/users/${this.uid}`, data, this.headers);
+  }
+
+  saveUser(user: User): Observable<any> {
+    return this.http.put(`${base_url}/users/${user.uid}`, user, this.headers);
   }
 
   login(formData: LoginForm): Observable<any> {
@@ -113,11 +114,49 @@ export class UserService {
     });
   }
 
+  loadUsers(from: number = 0): Observable<LoadUsers> {
+    const url = `${base_url}/users?from=${from}`;
+
+    return this.http.get<LoadUsers>(url, this.headers).pipe(
+      // delay(1000),
+      map((resp) => {
+        const users = resp.users.map(
+          (user) =>
+            new User(
+              user.name,
+              user.email,
+              null,
+              user.img,
+              user.google,
+              user.uid,
+              user.role
+            )
+        );
+        resp.users = users;
+        return resp;
+      })
+    );
+  }
+
+  deleteUser(user: User): Observable<any> {
+    const url = `${base_url}/users/${user.uid}`;
+
+    return this.http.delete(url, this.headers);
+  }
+
   get token(): string {
     return localStorage.getItem('token') || '';
   }
 
   get uid(): string {
     return this.user.uid || '';
+  }
+
+  get headers(): object {
+    return {
+      headers: {
+        'x-token': this.token,
+      },
+    };
   }
 }

@@ -10,11 +10,13 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class BreadcrumbsComponent implements OnInit, OnDestroy {
   title: string;
+  section: string;
   title$: Subscription;
 
   constructor(private router: Router) {
-    this.title$ = this.getRouteData().subscribe(({ title }) => {
+    this.title$ = this.getRouteData().subscribe(({ title, section }) => {
       this.title = title;
+      this.section = section;
       document.title = `AdminPro -  ${title}`;
     });
   }

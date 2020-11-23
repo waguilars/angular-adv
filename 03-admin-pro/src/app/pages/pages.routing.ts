@@ -11,6 +11,7 @@ import { AccoutSettingsComponent } from './accout-settings/accout-settings.compo
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './maintenance/users/users.component';
 
 const routes: Routes = [
   {
@@ -18,42 +19,79 @@ const routes: Routes = [
     component: PagesComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: DashboardComponent, data: { title: 'Dashboard' } },
+      {
+        path: '',
+        component: DashboardComponent,
+        data: {
+          section: 'Dashboard',
+          title: 'Main',
+        },
+      },
       {
         path: 'main',
         component: DashboardComponent,
-        data: { title: 'Dashboard' },
+        data: {
+          section: 'Dashboard',
+          title: 'Main',
+        },
       },
       {
         path: 'progress',
         component: ProgressComponent,
-        data: { title: 'PorgressBar' },
+        data: {
+          section: 'Dashboard',
+          title: 'PorgressBar',
+        },
       },
       {
         path: 'charts',
         component: Chart1Component,
-        data: { title: 'Graficos' },
+        data: {
+          section: 'Dashboard',
+          title: 'Graficos',
+        },
       },
       {
         path: 'account-settings',
         component: AccoutSettingsComponent,
-        data: { title: 'Ajustes' },
+        data: {
+          section: 'Dashboard',
+          title: 'Ajustes',
+        },
       },
       {
         path: 'promises',
         component: PromisesComponent,
-        data: { title: 'Promesas' },
+        data: {
+          section: 'Dashboard',
+          title: 'Promesas',
+        },
       },
       {
         path: 'profile',
         component: ProfileComponent,
-        data: { title: 'Mi Perfil' },
+        data: {
+          section: 'Dashboard',
+          title: 'Mi Perfil',
+        },
       },
-      { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' } },
       {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: '/dashboard',
+        path: 'rxjs',
+        component: RxjsComponent,
+        data: {
+          section: 'Dashboard',
+          title: 'RxJs',
+        },
+      },
+
+      // maintenance
+      {
+        path: 'users',
+        component: UsersComponent,
+        data: {
+          title: 'Usuarios del sistema',
+          section: 'Mantenimiento',
+        },
       },
     ],
   },
