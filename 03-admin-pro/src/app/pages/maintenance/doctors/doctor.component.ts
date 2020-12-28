@@ -59,19 +59,24 @@ export class DoctorComponent implements OnInit {
     this.doctorSv
       .getDoctorById(id)
       .pipe(delay(100))
-      .subscribe((doc) => {
-        if (!doc) {
-          return this.router.navigateByUrl('/dashboard/doctors');
+      .subscribe(
+        (doc) => {
+          if (!doc) {
+            return this.router.navigateByUrl('/dashboard/doctors');
+          }
+
+          const {
+            name,
+            hospital: { _id },
+          } = doc;
+          this.selectedDoctor = doc;
+
+          this.doctorForm.setValue({ name, hospital: _id });
+        },
+        (err) => {
+          this.router.navigateByUrl('/dashboard/doctors');
         }
-
-        const {
-          name,
-          hospital: { _id },
-        } = doc;
-        this.selectedDoctor = doc;
-
-        this.doctorForm.setValue({ name, hospital: _id });
-      });
+      );
   }
 
   saveDoctor(): void {

@@ -39,6 +39,15 @@ router.put(
 
 router.delete('/:id', validateJWT, deleteDoctor);
 
-router.get('/:id', validateJWT, getDoctorById);
+router.get(
+  '/:id',
+  [
+    validateJWT,
+    check('name', 'El nombre del médico es necesario').not().isEmpty(),
+    check('hospital', 'Id de hospital no valido').isMongoId(),
+    validateFields,
+  ],
+  getDoctorById
+);
 
 module.exports = router;
