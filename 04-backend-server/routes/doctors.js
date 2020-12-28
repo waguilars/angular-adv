@@ -9,6 +9,7 @@ const {
   deleteDoctor,
   getDoctors,
   updateDoctor,
+  getDoctorById,
 } = require('../controllers/doctors');
 
 const router = Router();
@@ -37,5 +38,7 @@ router.put(
 );
 
 router.delete('/:id', validateJWT, deleteDoctor);
+
+router.get('/:id', validateJWT, getDoctorById);
 
 module.exports = router;

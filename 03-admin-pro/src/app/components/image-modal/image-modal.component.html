@@ -14,13 +14,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="exampleModalLabel1">Cargar Imagen</h4>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-            (click)="closeModal()"
-          >
+          <button type="button" class="close" (click)="closeModal()">
             <span aria-hidden="true">×</span>
           </button>
         </div>
@@ -31,7 +25,7 @@
             <img
               id="modal-img"
               #modalImg
-              [src]="modalSv.img"
+              [src]="modalSv.img | image: modalSv.type"
               class="img-avatar"
             />
             <!-- <img [src]="user.imageUrl" class="img-avatar" /> -->

@@ -1,7 +1,4 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { User } from '../models/user.model';
-import { Doctor } from '../models/doctor.model';
-import { Hospital } from '../models/hospital.model';
 
 @Injectable({
   providedIn: 'root',
