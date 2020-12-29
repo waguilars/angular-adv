@@ -1,0 +1,98 @@
+<div class="row animated fadeIn fast">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>Usuarios</h3>
+
+        <div class="alert alert-info" *ngIf="users.length === 0">
+          <p class="mb-0">No hay usuarios con ese termino</p>
+        </div>
+
+        <div class="table-responsive" *ngIf="users.length > 0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Nombre</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>
+                  <img class="w75" [src]="user.img | image" />
+                </td>
+                <td>{{ user.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>Médicos</h3>
+
+        <div class="alert alert-info" *ngIf="doctors.length === 0">
+          <p class="mb-0">No hay médicos con ese termino</p>
+        </div>
+
+        <div class="table-responsive" *ngIf="doctors.length > 0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Foto</th>
+                <th>Nombre</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let doctor of doctors">
+                <td>
+                  <img class="w75" [src]="doctor.img | image" />
+                </td>
+                <td>
+                  <a [routerLink]="['/dashboard/doctor', doctor._id]">
+                    {{ doctor.name }}
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+        <h3>Hospitales</h3>
+
+        <div class="alert alert-info" *ngIf="hospitals.length === 0">
+          <p class="mb-0">No hay hospitales con ese termino</p>
+        </div>
+
+        <div class="table-responsive" *ngIf="hospitals.length > 0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Foto</th>
+                <th>Nombre</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let hospital of hospitals">
+                <td>
+                  <img class="w75" [src]="hospital.img | image" />
+                </td>
+                <td>{{ hospital.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

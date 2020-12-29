@@ -1,6 +1,6 @@
 // Path: /api/hopsitals
 const { Router } = require('express');
-const { check } = require('express-validator');
+const { check, param } = require('express-validator');
 
 const { validateFields } = require('../middlewares/validators');
 const { validateJWT } = require('../middlewares/jwt');
@@ -39,15 +39,6 @@ router.put(
 
 router.delete('/:id', validateJWT, deleteDoctor);
 
-router.get(
-  '/:id',
-  [
-    validateJWT,
-    check('name', 'El nombre del médico es necesario').not().isEmpty(),
-    check('hospital', 'Id de hospital no valido').isMongoId(),
-    validateFields,
-  ],
-  getDoctorById
-);
+router.get('/:id', validateJWT, getDoctorById);
 
 module.exports = router;

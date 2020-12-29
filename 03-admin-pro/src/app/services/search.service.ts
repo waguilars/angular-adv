@@ -55,6 +55,11 @@ export class SearchService {
     );
   }
 
+  globalSearch(term: string): Observable<any> {
+    const url = `${base_url}/all/${term}`;
+    return this.http.get(url, this.headers);
+  }
+
   get token(): string {
     return localStorage.getItem('token') || '';
   }

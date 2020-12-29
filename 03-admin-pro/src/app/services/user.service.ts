@@ -41,6 +41,8 @@ export class UserService {
           localStorage.setItem('token', resp.token);
           const { role, google, name, email, img, uid } = resp.user;
           this.user = new User(name, email, null, img, google, uid, role);
+          localStorage.setItem('token', resp.token);
+          localStorage.setItem('menu', JSON.stringify(resp.menu));
           return true;
         }),
         catchError((err) => of(false))
@@ -51,6 +53,7 @@ export class UserService {
     return this.http.post(`${base_url}/users`, formData).pipe(
       tap((resp) => {
         localStorage.setItem('token', resp.token);
+        localStorage.setItem('menu', JSON.stringify(resp.menu));
       })
     );
   }
@@ -75,6 +78,7 @@ export class UserService {
     return this.http.post(`${base_url}/login`, formData).pipe(
       tap((resp) => {
         localStorage.setItem('token', resp.token);
+        localStorage.setItem('menu', JSON.stringify(resp.menu));
       })
     );
   }
@@ -98,12 +102,14 @@ export class UserService {
     return this.http.post(`${base_url}/login/google`, { token }).pipe(
       tap((resp) => {
         localStorage.setItem('token', resp.token);
+        localStorage.setItem('menu', JSON.stringify(resp.menu));
       })
     );
   }
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
 
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
@@ -148,8 +154,16 @@ export class UserService {
     return localStorage.getItem('token') || '';
   }
 
+  get menu(): any {
+    return localStorage.getItem('menu');
+  }
+
   get uid(): string {
     return this.user.uid || '';
+  }
+
+  get role(): string {
+    return this.user.role;
   }
 
   get headers(): object {

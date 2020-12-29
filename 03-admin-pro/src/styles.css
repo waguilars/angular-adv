@@ -39,6 +39,10 @@ ul.dropdown-user li {
   width: 200px;
 }
 
+.w75 {
+  width: 75px;
+}
+
 .avatar {
   border: 1px solid grey;
   border-radius: 100%;
